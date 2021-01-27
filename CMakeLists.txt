@@ -5,17 +5,19 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-if(TSIL_SIZE)
-  if(TSIL_SIZE STREQUAL "TSIL_SIZE_DOUBLE")
-    add_definitions(-DTSIL_SIZE_DOUBLE)
-  elseif(TSIL_SIZE STREQUAL "TSIL_SIZE_LONG")
-    add_definitions(-DTSIL_SIZE_LONG)
-  else()
-    message(FATAL_ERROR "You must set TSIL_SIZE to either TSIL_SIZE_DOUBLE or TSIL_SIZE_LONG")
-  endif()
-else()
-  add_definitions(-DTSIL_SIZE_LONG) # default
+if(NOT TSIL_SIZE)
+  set(TSIL_SIZE "TSIL_SIZE_LONG") # default
 endif()
+
+if(TSIL_SIZE STREQUAL "TSIL_SIZE_DOUBLE")
+  add_definitions(-DTSIL_SIZE_DOUBLE)
+elseif(TSIL_SIZE STREQUAL "TSIL_SIZE_LONG")
+  add_definitions(-DTSIL_SIZE_LONG)
+else()
+  message(FATAL_ERROR "You must set TSIL_SIZE to either TSIL_SIZE_DOUBLE or TSIL_SIZE_LONG")
+endif()
+
+message(STATUS "Using ${TSIL_SIZE}")
 
 add_library(tsil STATIC
   initialize.c
