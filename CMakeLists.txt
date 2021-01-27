@@ -54,6 +54,7 @@ add_library(tsil STATIC
 
 add_executable(tsil.x basecalc.c)
 target_link_libraries(tsil.x tsil m)
+set_target_properties(tsil.x PROPERTIES OUTPUT_NAME "tsil")
 
 add_executable(tsil.tst testprog.c)
 target_link_libraries(tsil.tst tsil m)
